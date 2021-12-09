@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Penn In Touch</title>
+    </head>
+
+    <body>
+        <h1>Welcome to Penn In Touch!</h1><br>
+        <h2>Your classes: </h2><br>
+
+        <ul>
+            {% for class in classes %}
+            <li>{{ class }}<a href="/drop/{{ user }}/{{ class }}">Drop</a></li>
+            {% endfor %}
+        </ul>
+
+        <a href="/course-list/{{ user }}">Register for classes </a><br>
+        <a href="/create/{{ user }}">Create a class </a><br>
+    </body>
+</html>

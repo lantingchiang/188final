@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Penn In Touch</title>
+    </head>
+
+    <body>
+        <h1>Course List</h1><br>
+        <h2>Available courses: </h2><br>
+
+        <ul>
+            {% for key, value in courses.items() %}
+            <li>
+                <h3>{{ key }}</h3>
+                <a href="/register/{{ user }}/{{ key }}">Register</a>
+                <br>
+                <p>{{ value }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="/home/{{ user }}">Return to main page </a><br>
+    </body>
+</html>
