@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
 from pathlib import Path
 
 app = FastAPI()
@@ -10,8 +9,8 @@ classes = {"CIS188": "A great devops class",}
 #dictionary of student to list of classes enrolled in
 registrations = {"test1": ["CIS188"], "test2": []}
 
-BASE_PATH = Path(__file__).resolve().parent
-TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
+# BASE_PATH = Path(__file__).resolve().parent
+TEMPLATES = Jinja2Templates(directory=str("templates"))
 
 @app.get("/home/{user}", response_class=HTMLResponse)
 def home_view(request: Request, user: str = "test"):
@@ -35,7 +34,10 @@ def course_list_view(request: Request, user:str):
 
 @app.get("/create/{user}")
 def add_course(request: Request, user: str):
-    return TEMPLATES.TemplateResponse("create-course.html", {"request": request, "user": user})
+    return TEMPLATES.TemplateResponse(
+        "create-course.html", 
+        {"request": request, "user": user}
+    )
 
 
 @app.post("/create/{user}")
@@ -46,7 +48,6 @@ def add_course(request: Request, user: str, name: str = Form("name"), descriptio
         )
     
     classes[name] = description
-    print(classes)
     return TEMPLATES.TemplateResponse(
         "message.html",
         {"request": request, "message": f"Added course {name}", "user": user}
