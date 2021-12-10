@@ -8,7 +8,7 @@ app = FastAPI()
 #dictionary of class to description
 classes = {"CIS188": "A great devops class",} 
 #dictionary of student to list of classes enrolled in
-registrations = {"test": ["CIS188"], }
+registrations = {"test1": ["CIS188"], "test2": []}
 
 BASE_PATH = Path(__file__).resolve().parent
 TEMPLATES = Jinja2Templates(directory=str(BASE_PATH / "templates"))
