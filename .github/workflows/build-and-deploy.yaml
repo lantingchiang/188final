@@ -1,0 +1,21 @@
+name: Penn In Touch
+
+on: push
+
+jobs:
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: install poetry
+        uses: Gr1N/setup-poetry@v4
+      
+      - name: install dependencies and run test
+        run: |
+          cd final_project
+          poetry install
+          poetry run pytest
