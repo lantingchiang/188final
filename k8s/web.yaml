@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    name: web-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: web
+  template:
+    metadata:
+      labels:
+        name: web
+    spec:
+      containers:
+      - name: web
+        image: final:v1
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: templates
+          mountPath: /templates
+          readOnly: true
+      volumes:
+        - name: templates
+          configMap:
+            name: template-map
+            items:
+            - key: "course-list.html"
+              path: "course-list.html"
+            - key: "create-course.html"
+              path: "create-course.html"
+            - key: "index.html"
+              path: "index.html"
+            - key: "message.html"
+              path: "message.html"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    name: web
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

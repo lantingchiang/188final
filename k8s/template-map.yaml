@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: template-map
+data:
+  course-list.html: |
+    <html>
+      <head>
+          <title>Penn In Touch</title>
+      </head>
+
+      <body>
+          <h1>Course List</h1><br>
+          <h2>Available courses </h2><br>
+          <ul>
+              {% for key, value in courses.items() %}
+              <li>
+                  <h3>{{ key }}</h3>
+                  <a href="/register/{{ user }}/{{ key }}">Register</a>
+                  <br>
+                  <p>{{ value }}</p>
+              </li>
+              {% endfor %}
+          </ul>
+          <a href="/home/{{ user }}">Return to main page </a><br>
+      </body>
+    </html>
+  create-course.html: |
+    <html>
+      <head>
+          <title>Penn In Touch</title>
+      </head>
+      <body>
+          <form method="post" action="/create/{{ user }}">
+              <label for="name">Course name:</label><br>
+              <input type="text" id="name" name="name"><br>
+              <label for="description">Description:</label><br>
+              <input type="text" id="description" name="description"><br>
+              <input type="submit" value="Submit">
+          </form>
+      </body>
+    </html>
+  index.html: |
+    <html>
+      <head>
+          <title>Penn In Touch</title>
+      </head>
+
+      <body>
+          <h1>Welcome to Penn In Touch!</h1><br>
+          <h2>Your classes </h2><br>
+          <ul>
+              {% for class in classes %}
+              <li>{{ class }}<a href="/drop/{{ user }}/{{ class }}">Drop</a></li>
+              {% endfor %}
+          </ul>
+          <a href="/course-list/{{ user }}">Register for classes </a><br>
+          <a href="/create/{{ user }}">Create a class </a><br>
+      </body>
+    </html>
+  message.html: |
+    <html>
+      <head>
+          <title>Penn In Touch</title>
+      </head>
+      <body>
+          <h1>{{ message }}</h1>
+          <a href="/home/{{ user }}">Back to home </a><br>
+      </body>
+    </html>
